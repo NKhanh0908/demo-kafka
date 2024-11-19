@@ -10,8 +10,17 @@ import org.springframework.stereotype.Service;
 public class MessageService {
     private KafkaProducerService kafkaProducerService;
 
+    @Autowired
+    public MessageService(KafkaProducerService kafkaProducerService) {
+        this.kafkaProducerService = kafkaProducerService;
+    }
+
     public MessageDTO sendMessage(MessageDTO messageDTO){
         kafkaProducerService.sendMessage(messageDTO);
         return messageDTO;
+    }
+
+    public void sendMessageToKey(MessageDTO messageDTO){
+        kafkaProducerService.sendMessageWithKey("user1",messageDTO);
     }
 }

@@ -16,8 +16,22 @@ public class KafkaProducerService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
+    /**
+     * Send a message to kafka producer not key
+     * @param messageDTO
+     */
     public void sendMessage(MessageDTO messageDTO){
-        kafkaTemplate.send("my-topic", messageDTO);
+        kafkaTemplate.send("test_topic", messageDTO);
         log.info("Message sent to Kafka: {}" , messageDTO);
+    }
+
+    /**
+     * Send a message to kafka producer with key
+     * @param key
+     * @param messageDTO
+     */
+    public void sendMessageWithKey(String key, MessageDTO messageDTO){
+        kafkaTemplate.send("test_topic", key, messageDTO);
+        log.info("Message with key {} sent to Kafka: {}" , key, messageDTO);
     }
 }

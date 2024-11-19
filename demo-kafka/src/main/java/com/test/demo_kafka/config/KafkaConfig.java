@@ -23,4 +23,6 @@ public class KafkaConfig {
     public NewTopic create(){
         return new NewTopic("test_topic", 1, (short) 1);
     }
+
+
 }
