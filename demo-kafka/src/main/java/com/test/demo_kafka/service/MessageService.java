@@ -1,26 +1,21 @@
 package com.test.demo_kafka.service;
 
 import com.test.demo_kafka.dto.MessageDTO;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.test.demo_kafka.producer.KafkaProducerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
+@RequiredArgsConstructor
 public class MessageService {
-    private KafkaProducerService kafkaProducerService;
 
-    @Autowired
-    public MessageService(KafkaProducerService kafkaProducerService) {
-        this.kafkaProducerService = kafkaProducerService;
+    private final KafkaProducerService kafkaProducerService;
+
+    public void sendToKafka(MessageDTO messageDTO) {
+        kafkaProducerService.sendMessage("test_topic", messageDTO);
     }
 
-    public MessageDTO sendMessage(MessageDTO messageDTO){
-        kafkaProducerService.sendMessage(messageDTO);
-        return messageDTO;
-    }
-
-    public void sendMessageToKey(MessageDTO messageDTO){
-        kafkaProducerService.sendMessageWithKey("user1",messageDTO);
+    public void sendToKafkaWithKey(String key, MessageDTO messageDTO) {
+        kafkaProducerService.sendMessageWithKey("test_topic", key, messageDTO);
     }
 }
