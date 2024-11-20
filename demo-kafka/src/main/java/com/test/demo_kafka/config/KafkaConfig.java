@@ -7,22 +7,22 @@ import org.springframework.kafka.core.KafkaAdmin;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Configuration
 public class KafkaConfig {
 
+    private static final String KAFKA_SERVER = "localhost:9092";
+    private static final String TEST_TOPIC = "test_topic";
+
     @Bean
-    public KafkaAdmin kafkaAdmin(){
-        Map<String, Object> configs = new HashMap<String, Object>();
-        configs.put("bootstrap.servers", "localhost:9092");
+    public KafkaAdmin kafkaAdmin() {
+        Map<String, Object> configs = new HashMap<>();
+        configs.put("bootstrap.servers", KAFKA_SERVER);
         return new KafkaAdmin(configs);
     }
 
     @Bean
-    public NewTopic create(){
-        return new NewTopic("test_topic", 1, (short) 1);
+    public NewTopic testTopic() {
+        return new NewTopic(TEST_TOPIC, 1, (short) 1);
     }
-
-
 }
